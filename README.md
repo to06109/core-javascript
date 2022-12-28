@@ -5,5 +5,6 @@
 학습이 완료된 항목은 체크박스로 표시됩니다.
 
 - [x] Code Structure
-- [ ] Variables
-- [ ] Static Mode
+- [x] Variables
+- [x] Static Mode
+- [x] Global This
