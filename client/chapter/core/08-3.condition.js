@@ -82,3 +82,13 @@ function getDay(dayValue) {
 
 // 랜덤값으로 입력
 console.log(getDay(getRandom(6)))
+
+let number = 5
+
+switch (number) {
+  case 3 || 5:
+    console.log('되네?')
+    break
+  default:
+    console.log('default')
+}

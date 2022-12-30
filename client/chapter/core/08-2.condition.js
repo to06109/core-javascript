@@ -32,16 +32,17 @@ let whichFalsy = true && ' ' && [] && { thisIsFalsy: false }
 let whichTruthy = false || '' || [2, 3].length || { thisIsTruthy: true }
 
 /* 로그인 구현하기 + 대소문자 구분없이 입력 받을 수 있게*/
-let userName = prompt("Who's there?", '').toUpperCase()
+let userName = prompt("Who's there?", '')
 let pw
 
-if (userName === 'ADMIN') {
+if (userName?.toUpperCase() === 'ADMIN') {
   pw = prompt('Password?', '').toUpperCase()
 
-  if (pw === 'THEMASTER') alert('환영합니다!')
+  if (pw?.toUpperCase() === 'THEMASTER') alert('환영합니다!')
   else if (pw === '' || pw === null) alert('취소되었습니다.')
   else alert('인증에 실패하였습니다.')
-} else if (userName === ' ' || userName === null) {
+  // 모든 공백을 찾아서 ''로 변환
+} else if (userName.replace(/\s*/g, '') === '' || userName === null) {
   alert('취소되었습니다.')
 } else {
   alert("I don't know you")
