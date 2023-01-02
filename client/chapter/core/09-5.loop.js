@@ -9,6 +9,7 @@ const arrayLike = {
   1: 'head',
   2: 'div',
   length: 3,
+  // [Symbol.iterator](){...}
 }
 
 // for(let value of arrayLike){
@@ -62,6 +63,14 @@ for (let value of languages) {
 }
 
 // - 특정 조건에서 중단하기
+for (let value of languages) {
+  // console.table(value.name);
+
+  let name = value.name
+  if (name.includes('C#')) break
+
+  // console.table(value);
+}
 
 const randomUser = {
   gender: 'female',
@@ -105,3 +114,48 @@ const randomUser = {
 // - for ~ in 문
 // - for ~ of 문
 // - 성능 비교 진단
+
+for (let key in randomUser) {
+  let L1 = randomUser[key]
+  // console.log('L1 : ', key)
+
+  if ({}.hasOwnProperty.call(randomUser, key)) {
+    if (typeof L1 === 'object') {
+      for (let key in L1) {
+        let L2 = L1[key]
+        // console.log('\t L2 : ', key);
+        if ({}.hasOwnProperty.call(L1, key)) {
+          if (typeof L2 === 'object') {
+            if ({}.hasOwnProperty.call(L2, key)) {
+              for (let key in L2) {
+                let L3 = L2[key]
+                // console.log('\t\t L3 : ', key);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 
+  Object.entries
+  Object.keys
+  Object.values
+ */
+
+for (let key of Object.keys(randomUser)) {
+  console.log(key)
+}
+
+for (let value of Object.values(randomUser)) {
+  console.log(value)
+}
+
+for (let keyValue of Object.entries(randomUser)) {
+  let key = keyValue[0]
+  let value = keyValue[1]
+
+  console.log(value)
+}
