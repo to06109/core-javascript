@@ -33,12 +33,36 @@ console.log(Object.prototype.hasOwnProperty.call(javaScript, key)) // true
 
 let a = {}
 
+// Object.prototype === {}
+
 for (let key in javaScript) {
   if ({}.hasOwnProperty.call(javaScript, key)) {
     console.log(key)
   }
 }
 
+// call함수 학습
+const user = {
+  name: 'tiger',
+  age: 32,
+}
+
+function hello(a, b, c) {
+  console.log(a, b, c)
+  console.log(this)
+}
+
+hello.call(user, 1, 2, 3)
+
 // for ~ in 문
 // - 객체 자신의 속성만 순환하려면?
 // - 배열 객체 순환에 사용할 경우?
+//  객체에 양보하세요 ..
+
+let tens = [10, 100, 1000, 10000]
+
+for (let value in tens) {
+  if ({}.hasOwnProperty.call(tens, value)) {
+    console.log(tens[value])
+  }
+}
