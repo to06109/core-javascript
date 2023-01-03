@@ -75,10 +75,93 @@ let namedFunctionExpression = function hello() {}
 // hello() // 얘는 쓸 수 없음 -> 의미없음, 함수의 이름만 dir에 선언됨
 
 // 콜백 함수 (표현)식
-let callbackFunctionExpression = function () {}
+let callbackFunctionExpression = function (url, resolve, reject) {
+  if (typeof url === 'string' && url.match(/http.+www/)) {
+    resolve(url)
+  } else {
+    reject()
+  }
+}
+
+callbackFunctionExpression(
+  'http://www.naver.com',
+  function (url) {
+    console.log(`${url} 해당 페이지로 이동합니다.`)
+  },
+  function () {
+    throw new Error('url 입력 정보가 올바르지 않습니다.')
+  },
+)
+
+/* forEach는 내부에 이런 식으로 구현되어 있을려나요? O
+forEach(function(){}, currentValue, index, array, thisArg){}
+
+arr.forEach(function(item, index){})
+*/
 
 // 함수 선언문 vs. 함수 (표현)식
+function aa() {}
+
+const bb = function () {}
 
 // 즉시 실행 함수 (표현)식
-// Immediately Invoked Function Expression
-// let IIFE
+// 즉시 호출될 수 있는 함수의 표현식
+// Immediately Invoked Function Expression <- 디자인 패턴 중에 하나.
+// 전역을 보호하기 위해서 썼었음
+let IIFE
+
+  // 이렇게 ()를 쳐주면 즉시실행
+;(function () {
+  console.log('hi')
+})
+
+//var를 보호할 수 있는 유일한 방법: 함수 스코프
+// var: 함수 스코프
+// let,const: 블록 스코프
+
+// 이러면 외부에서 x를 쓸 수 있음
+/* {
+  var x = 1
+}
+
+console.log(x) // 1
+
+// var를 함수 안에 넣으면 외부에서 쓸 수 없음 -> 전역 오염 안됨
+function cc() {
+  var y = 1
+}
+
+console.log(y) // error */
+;(function () {
+  // parameter
+  var alpha = 1
+  console.log('Hi~')
+})()
+;(function ($) {
+  console.log($) // window가 출력됨
+})(window)
+
+// IIFE 패턴을 어디에 사용하냐-
+const MASTER = (function ($) {
+  const KEY = 'aalsdf!@#$@#%'
+
+  // 내가 내보내고 싶은 항목들만 내보낼꺼야
+  // 모듈로서의 활용
+  // 정보 은닉화 incapsulation: 외부의 접근을 차단
+  // 일부 정보만 노출
+
+  console.log($('.first'))
+
+  return {
+    getKey: function () {
+      return KEY
+    },
+  }
+})() //arguments
+
+function getNode(node) {
+  return document.querySelector(node)
+}
+
+// console.log(getKey()) // 접근 error
+console.log(MASTER.getKey()) // 두번째 element 내보냄
