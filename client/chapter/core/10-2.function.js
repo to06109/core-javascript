@@ -75,8 +75,14 @@ let namedFunctionExpression = function hello() {}
 
 // hello() // 얘는 쓸 수 없음 -> 의미없음, 함수의 이름만 dir에 선언됨
 
+/* 
+movePage('https://www.naver.com',
+(url)=>{  window.href = url},
+()=>{})
+ */
+
 // 콜백 함수 (표현)식
-let callbackFunctionExpression = function (url, resolve, reject) {
+let movePage = function (url, resolve, reject) {
   if (typeof url === 'string' && url.match(/http.+www/)) {
     resolve(url)
   } else {
@@ -84,7 +90,7 @@ let callbackFunctionExpression = function (url, resolve, reject) {
   }
 }
 
-callbackFunctionExpression(
+movePage(
   'http://www.naver.com',
   function (url) {
     console.log(`${url} 해당 페이지로 이동합니다.`)
@@ -101,7 +107,18 @@ arr.forEach(function(item, index){})
 */
 
 // 함수 선언문 vs. 함수 (표현)식
-function aa() {}
+
+const user = {
+  name: 'tiger',
+  age: 32,
+}
+
+function aa() {
+  console.log(this)
+}
+
+let call = aa.call(user)
+let bind = aa.bind(user)
 
 const bb = function () {}
 
@@ -138,6 +155,17 @@ console.log(y) // error */
 // 너 getNode 이거 나가
 
 // getNode 받아
+
+// const MASTER = (function(){
+
+//   const KEY = 'alcls@#@!$%'
+
+//   return {
+//     getKey: function (){
+//       return KEY
+//     }
+//   }
+// })();
 ;(function () {
   // parameter
   var alpha = 1
@@ -165,10 +193,20 @@ const MASTER = (function ($) {
   }
 })(getNode) //arguments
 
-function getNode(node) {
-  return document.querySelector(node)
-}
-
 // console.log(getKey()) // 접근 error
 console.log(MASTER.getKey()) // 두번째 element 내보냄
 /* ---------------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* 모듈 프로그래밍                                                                   */
+/* -------------------------------------------------------------------------- */
+
+// 📂 10-2.function.js
+
+export function getNode(node) {
+  return document.querySelector(node)
+}
+
+// 📂 index.js
+
+import { getNode as $ } from './10-2.function.js'
