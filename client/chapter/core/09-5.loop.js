@@ -144,7 +144,7 @@ for (let key in randomUser) {
   Object.keys
   Object.values
  */
-
+// 객체값을 iterable한 배열에 담아서 반환
 for (let key of Object.keys(randomUser)) {
   console.log(key)
 }
@@ -153,9 +153,19 @@ for (let value of Object.values(randomUser)) {
   console.log(value)
 }
 
+// 코드가 짧아지긴 했지만 이것도 좋은 방법은 X -> 재귀를 쓰는게 좋음
 for (let keyValue of Object.entries(randomUser)) {
   let key = keyValue[0]
   let value = keyValue[1]
 
-  console.log(value)
+  console.log('L1 : ', key)
+
+  if (typeof value === 'object') {
+    for (let keyValue of Object.entries(value)) {
+      let key = keyValue[0]
+      let value = keyValue[1]
+
+      console.log('\t L2 : ', key)
+    }
+  }
 }
