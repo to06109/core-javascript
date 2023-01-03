@@ -2,6 +2,20 @@
 /* Functions → Declaration                                                */
 /* ---------------------------------------------------------------------- */
 
+/* 문: 값을 반환 X / 식: 값을 반환 O
+
+if문 if... { // scope}
+for문 for... {}
+while문 while... {}
+dowhile문
+
+함수선언 문 // 얘는 값을 반환하긴 함
+
+// let result = condition ? value1 : value2 // 삼항연산 식
+// let result = value1 || value2
+// let result = value1 && value2
+ */
+
 console.log('총 합 = ', 10000 + 8900 + 1360 + 2100)
 console.log('총 합 = ', 21500 + 3200 + 9800 + 4700)
 console.log('총 합 = ', 3800 + 15200 - 500 + 80200)
