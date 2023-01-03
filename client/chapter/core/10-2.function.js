@@ -27,13 +27,14 @@ let resultZ = calcTotal(9000, -2500, 5000, 11900)
 let calculateTotal = function () {
   // console.log(arguments)
 
-  // 함수 안에서만 접근 가능한 인수들의 집합 객첼로서 배열과 유사하여 유사 배열 타입으로 불리는 변수: arguments
+  // 함수 안에서만 접근 가능한 인수들의 집합 객체로서 배열과 유사하여 유사 배열 타입으로 불리는 변수: arguments
   // arguments 객체를 사용해 함수의 매개변수 없이 아이템의 총합을 구할 수 있다.
 
   // 유사배열은 배열이 아니다. 고로 배열의 능력을 사용하려면 진.짜. 배열로 만들어야 한다.
   // 배열의 능력 : forEach, reduce
 
   let total = 0
+  // console.log('유사배열', arguments)
 
   // 유사배열을 배열로 만들어주기 (배열에서 쓸 수 있는 메소드들을 사용하기 위해)
   let arr = Array.from(arguments) //1. static method
@@ -104,6 +105,7 @@ function aa() {}
 
 const bb = function () {}
 
+/* ---------------------------------------------------------------------------------- */
 // 즉시 실행 함수 (표현)식
 // 즉시 호출될 수 있는 함수의 표현식
 // Immediately Invoked Function Expression <- 디자인 패턴 중에 하나.
@@ -116,8 +118,8 @@ let IIFE
 })
 
 //var를 보호할 수 있는 유일한 방법: 함수 스코프
-// var: 함수 스코프
-// let,const: 블록 스코프
+//  var 함수 스코프
+//  let, const  블록 스코프
 
 // 이러면 외부에서 x를 쓸 수 있음
 /* {
@@ -132,6 +134,10 @@ function cc() {
 }
 
 console.log(y) // error */
+
+// 너 getNode 이거 나가
+
+// getNode 받아
 ;(function () {
   // parameter
   var alpha = 1
@@ -157,7 +163,7 @@ const MASTER = (function ($) {
       return KEY
     },
   }
-})() //arguments
+})(getNode) //arguments
 
 function getNode(node) {
   return document.querySelector(node)
@@ -165,3 +171,4 @@ function getNode(node) {
 
 // console.log(getKey()) // 접근 error
 console.log(MASTER.getKey()) // 두번째 element 내보냄
+/* ---------------------------------------------------------------------------------- */
