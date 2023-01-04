@@ -141,12 +141,6 @@ const user4 = {
 /* 다음 함수를 작성해봅니다. -------------------------------------------------- */
 // for문 이용
 
-let pow0 = (a, b) => {
-  console.log(Math.pow(a, b))
-}
-
-pow0(2, 53)
-
 // pow(numeric: number, powerCount: number): number;
 let pow = (numeric, powerCount) => {
   let result = 1
@@ -155,6 +149,12 @@ let pow = (numeric, powerCount) => {
   }
   return result
 }
+
+let powExpression = (numeric, powerCount) =>
+  // n개의 열을 가진 빈 배열 만들기
+  Array(powerCount)
+    .fill(null)
+    .reduce((acc) => acc * numeric, 1)
 
 console.log(pow(2, 53)) // 900719992547409992
 
@@ -168,6 +168,12 @@ let repeat = (text, repeatCount) => {
   return result
 }
 
-console.log(repeat('hello', 3))
+let repeatExpression = (text, repeatCount) => {
+  return Array(repeatCount)
+    .fill(null)
+    .reduce((acc) => acc + text, '')
+}
 
+console.log(repeat('hello', 3))
+console.log(repeatExpression('hello', 3))
 // repeat('hello', 3) // 'hellohellohello'
