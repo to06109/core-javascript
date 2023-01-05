@@ -71,7 +71,7 @@ const navigationMenu = {
     //화살표함수라서 this를 못찾음 -> 동작 X
     this.items.push(newItem)
   }, */
-  addItem: (newItem) => {
+  addItem(newItem) {
     //일반함수라서 this를 못찾음 -> 동작 O
     this.items.push(newItem)
   },
