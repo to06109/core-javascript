@@ -9,13 +9,11 @@
 function first() {
   let x = 10
 
-  function second() {
+  return () => {
     let y = 30
     // 식이 잘 구해질까? 잘 구해짐(x를 부모인 first에서 찾아옴: 스코프 체이닝)
     return x + y
   }
-
-  return second
 }
 
 const value = first() // second함수 본문
@@ -27,11 +25,9 @@ const value = first() // second함수 본문
 function number() {
   let count = 0
 
-  function inner() {
+  return function () {
     return ++count
   }
-
-  return inner
 }
 
 const counter = number() // inner 함수 본문
