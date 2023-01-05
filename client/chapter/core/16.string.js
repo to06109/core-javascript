@@ -2,6 +2,19 @@
 /* String Type                                                            */
 /* ---------------------------------------------------------------------- */
 
+// indexOf를 어디에 쓰는가
+function checkBrowser(browserName) {
+  let browser
+  let ua = navigator.userAgent.toLowerCase()
+  if (ua.indexOf('chrome') >= -1) browser = 'chrome'
+  else if (ua.indexOf('edge') >= -1) browser = 'edge'
+  else if (ua.indexOf('whale') >= -1) browser = 'whale'
+  else if (ua.indexOf('safari') >= -1) browser = 'safari'
+  else if (ua.indexOf('firefox') >= -1) browser = 'firefox'
+
+  return browser === browserName
+}
+
 // 문자열 자체가 유사배열! (length가짐, iterable한 객체)
 let message = 'Less is more.'
 console.log(message)
