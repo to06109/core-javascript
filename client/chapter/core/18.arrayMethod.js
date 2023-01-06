@@ -168,7 +168,7 @@ const friends = [
 
 // reduce
 // 친구들 나이의 총 합을 구하시오
-let age = friends.reduce((acc, cur) => {
+let age = friends.reduce((acc, cur, index) => {
   return acc + cur.age
 }, 0)
 console.log(age) // 72
