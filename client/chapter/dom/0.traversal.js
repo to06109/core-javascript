@@ -28,32 +28,33 @@
 
 // let first = document.querySelector('.first')
 
-let span = document.querySelectorAll('span')
+// let span = document.querySelectorAll('span')
 
 // first, second 분리하기 ( 구조분해 할당 이용 )
-let [first, second] = document.querySelectorAll('span')
+// let [first, second] = document.querySelectorAll('span')
 // console.log(second)
 
-// 유틸함수 만들기 getNode에 대상 넣으면 DOM에서 찾아서 return 해주는 함수
-function getNode(node) {
-  if (typeof node !== 'string') {
-    throw new Error('getNode 함수의 인자는 문자 타입 이어야 합니다.')
-  }
-
-  return document.querySelector(node)
-}
-
-function getNodes(node) {
-  if (typeof node !== 'string') {
-    throw new Error('getNode 함수의 인자는 문자 타입 이어야 합니다.')
-  }
-
-  return document.querySelectorAll(node)
-}
-
 console.log(getNode('.first'))
-console.log(getNode(123))
 
 /* 문서 대상 확인 */
 // - matches
+// 선택자 안에 class 또는 id를 가지고 있는 대상이 있어?
+console.log(getNode('.first').matches('.first'))
+
 // - contains
+// 선택자의 자식들 중에 해당 element가 있어?
+console.log(getNode('h1').contains(getNode('.first')))
+
+let first = getNode('.first')
+
+// 클릭이벤트로 응용해보기
+let clicked = false
+document.addEventListener('click', () => {
+  if (first.classList.contains('first') && !clicked) {
+    first.classList.add('is-active')
+  } else {
+    first.classList.remove('is-active')
+  }
+
+  clicked = !clicked
+})
