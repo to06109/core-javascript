@@ -67,8 +67,24 @@ function getAttr(node, prop) {
 }
 
 // set함수 만들기
-function setAttr(node, prop, value) {}
+function setAttr(node, prop, value) {
+  // validation: 확인
+  if (typeof node === 'string') node = getNode(node)
+  if (typeof prop !== 'string')
+    throw new TypeError(
+      'setAttr  함수의 두 번쨰 인자의 타입은 문자열이어야 합니다.',
+    )
+  if (!value)
+    throw new SyntaxError('setAttr 함수의 세 번째 인자는 필수값입니다.')
+
+  node.setAttribute(prop, value)
+}
 
 // common 함수 만들기
-
 console.log(getAttr('.first', 'class')) // first
+console.log(getAttr('.first', 'data-play')) // playing
+
+console.log(setAttr('.first', 'data-value', 'hello'))
+console.log(first)
+console.log(setAttr('.first', 123, 'hello'))
+// <span class="first" id="box" some="hello" data-play="playing" data-value="hello">hello</span>
