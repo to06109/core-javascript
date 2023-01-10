@@ -36,6 +36,7 @@ console.log(Object.prototype.toString([1, 2, 3]))
 // forEach
 const user = {}
 
+// forEach에 this를 전달해줄 수 있음
 arr.forEach((item, index) => {
   this[item] = item
 }, user)
@@ -82,7 +83,7 @@ console.log(arr) // [5, 10, 23, 100, 1000, 10000]
 // concat
 // slice
 // map
-let todo = ['밥먹기', '미용실가기', '코딩공부하기']
+// let todo = ['밥먹기', '미용실가기', '코딩공부하기']
 todo.map((item, index) => {
   console.log(item)
 })
@@ -173,6 +174,7 @@ let age = friends.reduce((acc, cur, index) => {
 }, 0)
 console.log(age) // 72
 
+let todo = ['밥먹기', '미용실가기', '코딩공부하기']
 let template2 = todo.reduce((acc, cur, index) => {
   return /* html */ acc + `<li>할일${index + 1} : ${cur}</li>`
 }, '')
