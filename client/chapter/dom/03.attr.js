@@ -57,34 +57,17 @@ console.log(first.dataset.play)
 //   },
 // )(getNode)
 
-// 유틸함수
-// get함수 만들기
-function getAttr(node, prop) {
-  if (typeof node === 'string') {
-    node = getNode(node)
-  }
-  return node.getAttribute(prop)
-}
+// 유틸함수 -> lib/dom/attr.js로 이동
 
-// set함수 만들기
-function setAttr(node, prop, value) {
-  // validation: 확인
-  if (typeof node === 'string') node = getNode(node)
-  if (typeof prop !== 'string')
-    throw new TypeError(
-      'setAttr  함수의 두 번쨰 인자의 타입은 문자열이어야 합니다.',
-    )
-  if (!value)
-    throw new SyntaxError('setAttr 함수의 세 번째 인자는 필수값입니다.')
+// console.log(getAttr('.first', 'class')) // first
+// console.log(getAttr('.first', 'data-play')) // playing
 
-  node.setAttribute(prop, value)
-}
-
-// common 함수 만들기
-console.log(getAttr('.first', 'class')) // first
-console.log(getAttr('.first', 'data-play')) // playing
-
-console.log(setAttr('.first', 'data-value', 'hello'))
-console.log(first)
-console.log(setAttr('.first', 123, 'hello'))
+// console.log(setAttr('.first', 'data-value', 'hello'))
+// console.log(first)
 // <span class="first" id="box" some="hello" data-play="playing" data-value="hello">hello</span>
+// console.log(setAttr('.first', 123, 'hello'))
+
+console.log(attr('.first', 'id'))
+console.log(attr('.first', 'id', 'container'))
+console.log(first)
+// <span class="first" id="container" some="hello" data-play="playing" data-value="hello">hello</span>
