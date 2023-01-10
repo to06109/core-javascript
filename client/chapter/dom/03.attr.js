@@ -57,7 +57,12 @@ console.log(first.dataset.play)
 //   },
 // )(getNode)
 
-// 유틸함수 -> lib/dom/attr.js로 이동
+/* 유틸함수 -> lib/dom/attr.js로 이동 ------------------------------------------*/
+// get함수 만들기
+
+// set함수 만들기
+
+// attr함수 만들기
 
 // console.log(getAttr('.first', 'class')) // first
 // console.log(getAttr('.first', 'data-play')) // playing
