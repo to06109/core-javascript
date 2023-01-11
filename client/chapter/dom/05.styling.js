@@ -43,4 +43,7 @@ console.log(size) // 32px
 // setCss('.first', 'color', 'blue')
 
 css('.first', 'font-size', '100px') // set
-console.log(css('.first', 'font-size')) // get
+
+setTimeout(() => {
+  console.log(css('.first', 'font-size')) // get
+}, 1000)
