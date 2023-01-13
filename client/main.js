@@ -9,17 +9,10 @@
 
 const form = getNode('.calculator')
 
-// const done = getNode('#done')
+const done = getNode('#done')
 const firstInput = getNode('#firstNumber')
 const secondInput = getNode('#secondNumber')
 const result = getNode('.result')
-
-const sum = (valueA, valueB) => valueA + valueB
-
-function clearContents(node) {
-  if (typeof node === 'string') node = getNode(node)
-  node.textContent = ''
-}
 
 // 재사용성을 위해 이 함수에서 형변환은 하지 않음
 // 숫자 뿐 아니라 문자로 받아야할 수도 있기 때문에
@@ -31,18 +24,36 @@ function getInputValue(node) {
   return node.value
 }
 
+const sum = (valueA, valueB) => valueA + valueB
+
+function clearContents(node) {
+  if (typeof node === 'string') node = getNode(node)
+  node.textContent = ''
+}
+
 function handler(e) {
   // 브라우저 새로고침 기본동작 제거
   e.preventDefault()
-  let firstNumber = +getInputValue(firstInput)
-  let secondNumber = +getInputValue(secondInput)
-  let total = sum(firstNumber, secondNumber)
+  let firstValue = +getInputValue(firstInput)
+  let secondValue = +getInputValue(secondInput)
+  let total = sum(firstValue, secondValue)
 
   // innetHTML은 사이트 간 스크립팅 공격을 보호해주지 않음
   clearContents(result)
   insertLast(result, total)
 }
 
+function inputHandler() {
+  let firstValue = +getInputValue(firstInput)
+  let secondValue = +getInputValue(secondInput)
+  let total = sum(firstValue, secondValue)
+
+  clearContents(result)
+
+  insertLast(result, total)
+}
+
 done.addEventListener('click', handler)
 
-// form.addEventListener('submit', handler)
+firstInput.addEventListener('change', inputHandler)
+secondInput.addEventListener('change', inputHandler)
