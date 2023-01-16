@@ -8,6 +8,7 @@ import {
   visibleElement,
   insertLast,
   attr,
+  clearContents,
 } from './lib/index.js'
 
 /* 
@@ -45,18 +46,17 @@ let count = 0
 let total = 0
 
 function renderRecordListItem() {
-  const cube = getNode('#cube')
-  const dataDice = +attr(cube, 'data-dice')
-  total += dataDice
-
+  const diceValue = +attr('#cube', 'data-dice')
   const template = /* html */ `
   <tr>
     <td>${++count}</td>
-    <td>${dataDice}</td>
-    <td>${total}</td>
+    <td>${diceValue}</td>
+    <td>${(total += diceValue)}</td>
   </tr>
   `
   insertLast('.recordListWrapper tbody', template)
+  // 새로운 기록이 생겼을 때 바로 볼 수 있게 스크롤을 맨 밑으로 내려줌
+  recordListWrapper.scrollTop = recordListWrapper.scrollHeight
 }
 
 /* -------------------------------------------------------------------------- */
@@ -92,6 +92,7 @@ const handleRecord = () => {
 
 const handleReset = () => {
   invisibleElement(recordListWrapper)
+  clearContents()
 }
 
 rollingDiceButton.addEventListener('click', handleRollingDice)
