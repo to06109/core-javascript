@@ -1,3 +1,5 @@
+/* global gsap */
+
 import {
   clearContents,
   getInputValue,
@@ -7,6 +9,8 @@ import {
   isNumericString,
   showAlert,
   copy,
+  addClass,
+  removeClass,
 } from './lib/index.js'
 
 import { jujeobData } from './data/data.js'
@@ -19,10 +23,20 @@ function clickSubmitHandler(e) {
   e.preventDefault()
 
   let name = getInputValue('#nameField')
+  let list = jujeobData(name)
+  let pick = list[getRandom(list.length - 1)]
 
   // 이름 입력 없을 경우 에러처리
   if (!name) {
     showAlert('.alert-error', '잘못된 정보입니다!', 2000)
+
+    //GSAP
+    gsap.fromTo(result, 0.01, { x: -5 }, { x: 5, clearProps: 'x', repeat: 20 })
+
+    // addClass(result, 'shake')
+    // setTimeout(() => {
+    //   removeClass(result, 'shake')
+    // }, 1000)
     return
   }
 
@@ -30,9 +44,6 @@ function clickSubmitHandler(e) {
     showAlert('.alert-error', '정확한 이름을 입력해 주세요', 2000)
     return
   }
-
-  let list = jujeobData(name)
-  let pick = list[getRandom(list.length - 1)]
 
   clearContents(result) // result 텍스트 비우고
   insertLast(result, pick) // pick 집어넣기
