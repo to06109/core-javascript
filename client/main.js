@@ -92,7 +92,9 @@ const handleRecord = () => {
 
 const handleReset = () => {
   invisibleElement(recordListWrapper)
-  clearContents()
+  clearContents('.recordListWrapper tbody')
+  count = 0
+  total = 0
 }
 
 rollingDiceButton.addEventListener('click', handleRollingDice)
