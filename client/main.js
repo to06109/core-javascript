@@ -1,4 +1,4 @@
-import { diceAnimation, getNode, getNodes } from './lib/index.js'
+import { diceAnimation, disableElement, enableElement, getNode, getNodes } from './lib/index.js'
 
 /* 
   [주사위 굴리기]
@@ -33,10 +33,14 @@ const handlerRollingDice = (() => {
   return () => {
     if (!isRolling) {
       stopAnimation = setInterval(diceAnimation, 100)
-      recordButton.disabled = true
+      // recordButton.disabled = true
+      disableElement(recordButton)
+      disableElement(resetButton)
     } else {
       clearInterval(stopAnimation)
-      recordButton.disabled = false
+      // recordButton.disabled = false
+      enableElement(recordButton)
+      enableElement(resetButton)
     }
     isRolling = !isRolling
   }
