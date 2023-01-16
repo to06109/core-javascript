@@ -1,4 +1,4 @@
-import { diceAnimation, getNode } from './lib/index.js'
+import { diceAnimation, getNode, getNodes } from './lib/index.js'
 
 /* 
   [주사위 굴리기]
@@ -17,7 +17,12 @@ import { diceAnimation, getNode } from './lib/index.js'
   5. toggleState 유틸 함수 만들기  
 */
 
-const rollingDiceButton = getNode('.buttonGroup > button:nth-child(1)')
+const [rollingDiceButton, recordButton, resetButton] = getNodes('.buttonGroup > button')
+
+// const rollingDiceButton = getNode('.buttonGroup > button:nth-child(1)')
+// const recordButton = getNode('.buttonGroup > button:nth-child(2)')
+// const resetButton = getNode('.buttonGroup > button:nth-child(3)')
+
 
 // IIFE
 const handlerRollingDice = (() => {
@@ -28,8 +33,10 @@ const handlerRollingDice = (() => {
   return () => {
     if (!isRolling) {
       stopAnimation = setInterval(diceAnimation, 100)
+      recordButton.disabled = true
     } else {
       clearInterval(stopAnimation)
+      recordButton.disabled = false
     }
     isRolling = !isRolling
   }
