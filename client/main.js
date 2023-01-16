@@ -6,6 +6,7 @@ import {
   insertLast,
   isNumericString,
   showAlert,
+  copy,
 } from './lib/index.js'
 
 import { jujeobData } from './data/data.js'
@@ -21,12 +22,12 @@ function clickSubmitHandler(e) {
 
   // 이름 입력 없을 경우 에러처리
   if (!name) {
-    showAlert('.alert-error', '이름을 입력해 주세요', 2000)
+    showAlert('.alert-error', '잘못된 정보입니다!', 2000)
     return
   }
 
   if (isNumericString(name)) {
-    showAlert('.alert-error', '제대로된 이름을 입력해 주세요', 2000)
+    showAlert('.alert-error', '정확한 이름을 입력해 주세요', 2000)
     return
   }
 
@@ -37,4 +38,14 @@ function clickSubmitHandler(e) {
   insertLast(result, pick) // pick 집어넣기
 }
 
+function clickCopyHandler(e) {
+  let text = result.textContent
+  // navigator.clipboard.writeText(text) // writeText: 받은 문자를 클릭보드에 써주는
+  // 유틸함수 만들어서 씀
+  copy(text).then(() => {
+    showAlert('.alert-success', '클립보드 복사가 완료되었습니다.', 2000)
+  })
+}
+
 submit.addEventListener('click', clickSubmitHandler)
+result.addEventListener('click', clickCopyHandler)
