@@ -9,6 +9,7 @@ import {
   insertLast,
   attr,
   clearContents,
+  memo,
 } from './lib/index.js'
 
 /* 
@@ -34,10 +35,20 @@ import {
   2. HTML 템플릿 만들기
   3. 템플릿 뿌리기 
  */
+
+/* 
+    [초기화 시키기]
+    1. clearContent로 정보 지우기
+    2. total, count 초기화
+    3. 스크롤 밑으로 보내기
+    4. 메모이제이션 패턴
+  */
 const [rollingDiceButton, recordButton, resetButton] = getNodes(
   '.buttonGroup > button',
 )
 const recordListWrapper = getNode('.recordListWrapper')
+
+memo('@tbody', () => getNode('.recordListWrapper tbody'))
 // const rollingDiceButton = getNode('.buttonGroup > button:nth-child(1)')
 // const recordButton = getNode('.buttonGroup > button:nth-child(2)')
 // const resetButton = getNode('.buttonGroup > button:nth-child(3)')
@@ -46,7 +57,7 @@ let count = 0
 let total = 0
 
 function renderRecordListItem() {
-  const diceValue = +attr('#cube', 'data-dice')
+  const diceValue = +attr(memo('cube'), 'data-dice')
   const template = /* html */ `
   <tr>
     <td>${++count}</td>
@@ -54,7 +65,7 @@ function renderRecordListItem() {
     <td>${(total += diceValue)}</td>
   </tr>
   `
-  insertLast('.recordListWrapper tbody', template)
+  insertLast(memo('@tbody'), template)
   // 새로운 기록이 생겼을 때 바로 볼 수 있게 스크롤을 맨 밑으로 내려줌
   recordListWrapper.scrollTop = recordListWrapper.scrollHeight
 }
@@ -92,7 +103,7 @@ const handleRecord = () => {
 
 const handleReset = () => {
   invisibleElement(recordListWrapper)
-  clearContents('.recordListWrapper tbody')
+  clearContents(memo('@tbody'))
   count = 0
   total = 0
 }
