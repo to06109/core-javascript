@@ -1,4 +1,14 @@
-import { diceAnimation, disableElement, enableElement, getNode, getNodes } from './lib/index.js'
+import {
+  diceAnimation,
+  disableElement,
+  enableElement,
+  getNode,
+  getNodes,
+  invisibleElement,
+  visibleElement,
+  insertLast,
+  attr,
+} from './lib/index.js'
 
 /* 
   [주사위 굴리기]
@@ -17,16 +27,44 @@ import { diceAnimation, disableElement, enableElement, getNode, getNodes } from 
   5. toggleState 유틸 함수 만들기  
 */
 
-const [rollingDiceButton, recordButton, resetButton] = getNodes('.buttonGroup > button')
-
+/* 
+  [ 레코드 템플릿 뿌리기 ]
+  1. renderRecordListItem 함수 만들기
+  2. HTML 템플릿 만들기
+  3. 템플릿 뿌리기 
+ */
+const [rollingDiceButton, recordButton, resetButton] = getNodes(
+  '.buttonGroup > button',
+)
+const recordListWrapper = getNode('.recordListWrapper')
 // const rollingDiceButton = getNode('.buttonGroup > button:nth-child(1)')
 // const recordButton = getNode('.buttonGroup > button:nth-child(2)')
 // const resetButton = getNode('.buttonGroup > button:nth-child(3)')
 
+let count = 0
+let total = 0
+
+function renderRecordListItem() {
+  const cube = getNode('#cube')
+  const dataDice = +attr(cube, 'data-dice')
+  total += dataDice
+
+  const template = /* html */ `
+  <tr>
+    <td>${++count}</td>
+    <td>${dataDice}</td>
+    <td>${total}</td>
+  </tr>
+  `
+  insertLast('.recordListWrapper tbody', template)
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    event                                   */
+/* -------------------------------------------------------------------------- */
 
 // IIFE
-const handlerRollingDice = (() => {
-
+const handleRollingDice = (() => {
   let stopAnimation // else절에서도 이 변수 쓸 수 있게 전역에 선언
   let isRolling = false
 
@@ -46,4 +84,16 @@ const handlerRollingDice = (() => {
   }
 })()
 
-rollingDiceButton.addEventListener('click', handlerRollingDice)
+const handleRecord = () => {
+  visibleElement(recordListWrapper)
+
+  renderRecordListItem()
+}
+
+const handleReset = () => {
+  invisibleElement(recordListWrapper)
+}
+
+rollingDiceButton.addEventListener('click', handleRollingDice)
+recordButton.addEventListener('click', handleRecord)
+resetButton.addEventListener('click', handleReset)
