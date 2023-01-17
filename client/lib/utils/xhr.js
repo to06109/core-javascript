@@ -1,9 +1,23 @@
 // Ajax Engine
 
-function xhrData(method, url, body) {
+function xhrData({
+  url = '',
+  method = 'GET',
+  body = null,
+  onSuccess = null,
+  headers = {
+    'Content-Type': 'applicatoin/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+}) {
   const xhr = new XMLHttpRequest()
   // 비동기 통신 오픈
   xhr.open(method, url)
+
+  // 헤더 추가
+  // Object.entries(headers).forEach(([key, value]) => {
+  //   xhr.setRequestHeader(key, value)
+  // })
 
   // 객체 구조 분해 할당
   xhr.addEventListener('readystatechange', () => {
@@ -22,7 +36,12 @@ function xhrData(method, url, body) {
   xhr.send(JSON.stringify(body))
 }
 
-xhrData('POST', 'https://jsonplaceholder.typicode.com/users', {
+xhrData({
+  url: 'https://jsonplaceholder.typicode.com/users',
+  onSuccess: () => {},
+})
+
+/* xhrData('POST', 'https://jsonplaceholder.typicode.com/users', {
   name: 'Leanne Graham',
   username: 'Bret',
   email: 'Sincere@april.biz',
@@ -43,4 +62,4 @@ xhrData('POST', 'https://jsonplaceholder.typicode.com/users', {
     catchPhrase: 'Multi-layered client-server neural-net',
     bs: 'harness real-time e-markets',
   },
-})
+}) */
