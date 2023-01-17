@@ -30,8 +30,7 @@ function xhrData({
         onSuccess(JSON.parse(response))
       }
     } else {
-      console.error('통신 실패')
-      onFail(JSON.parse(response))
+      onFail('통신 실패')
     }
   })
   // 서버에 요청
@@ -44,10 +43,77 @@ xhrData({
     console.log(result)
   },
   onFail: (error) => {
-    console.log(error)
+    console.error(error)
   },
 })
 
+xhrData.post = (url, body, onSuccess, onFail) => {
+  xhrData({ method: 'POST', body, url, onSuccess, onFail })
+}
+
+xhrData.put = (url, body, onSuccess, onFail) => {
+  xhrData({ method: 'PUT', body, url, onSuccess, onFail })
+}
+
+xhrData.get = (url, onSuccess, onFail) => {
+  xhrData({ url, onSuccess, onFail })
+}
+
+xhrData.delete = (url, onSuccess, onFail) => {
+  xhrData({ method: 'DELETE', url, onSuccess, onFail })
+}
+
+xhrData.get(
+  'https://jsonplaceholder.typicode.com/users',
+  (res) => {
+    console.log(res)
+  },
+  (err) => {
+    console.log(err)
+  },
+)
+
+xhrData.post(
+  'https://jsonplaceholder.typicode.com/users',
+  {
+    name: 'Song song',
+    username: 'Bret',
+    email: 'Sincere@april.biz',
+    address: {
+      street: 'Kulas Light',
+      suite: 'Apt. 556',
+      city: 'Gwenborough',
+      zipcode: '92998-3874',
+      geo: {
+        lat: '-37.3159',
+        lng: '81.1496',
+      },
+    },
+    phone: '1-770-736-8031 x56442',
+    website: 'hildegard.org',
+    company: {
+      name: 'Romaguera-Crona',
+      catchPhrase: 'Multi-layered client-server neural-net',
+      bs: 'harness real-time e-markets',
+    },
+  },
+  (res) => {
+    console.log(res)
+  },
+  (err) => {
+    console.log(err)
+  },
+)
+
+xhrData.delete(
+  'https://jsonplaceholder.typicode.com/users/1',
+  (res) => {
+    console.log(res)
+  },
+  (err) => {
+    console.log(err)
+  },
+)
 /* xhrData('POST', 'https://jsonplaceholder.typicode.com/users', {
   name: 'Leanne Graham',
   username: 'Bret',
