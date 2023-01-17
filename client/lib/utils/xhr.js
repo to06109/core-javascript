@@ -5,6 +5,7 @@ function xhrData({
   method = 'GET',
   body = null,
   onSuccess = null,
+  onFail = null,
   headers = {
     'Content-Type': 'applicatoin/json',
     'Access-Control-Allow-Origin': '*',
@@ -26,10 +27,11 @@ function xhrData({
       // 통신 성공 상태일 경우
       if (readyState === 4) {
         console.log('통신 성공')
-        console.log(JSON.parse(response))
+        onSuccess(JSON.parse(response))
       }
     } else {
       console.error('통신 실패')
+      onFail(JSON.parse(response))
     }
   })
   // 서버에 요청
@@ -37,8 +39,13 @@ function xhrData({
 }
 
 xhrData({
-  url: 'https://jsonplaceholder.typicode.com/users',
-  onSuccess: () => {},
+  url: 'https://jsonplaceholder.typicode.com/uses',
+  onSuccess: (result) => {
+    console.log(result)
+  },
+  onFail: (error) => {
+    console.log(error)
+  },
 })
 
 /* xhrData('POST', 'https://jsonplaceholder.typicode.com/users', {
