@@ -1,6 +1,6 @@
 // Ajax Engine
 
-function xhrData({
+export function xhrData({
   url = '',
   method = 'GET',
   body = null,
@@ -37,15 +37,15 @@ function xhrData({
   xhr.send(JSON.stringify(body))
 }
 
-xhrData({
-  url: 'https://jsonplaceholder.typicode.com/uses',
-  onSuccess: (result) => {
-    console.log(result)
-  },
-  onFail: (error) => {
-    console.error(error)
-  },
-})
+// xhrData({
+//   url: 'https://jsonplaceholder.typicode.com/uses',
+//   onSuccess: (result) => {
+//     console.log(result)
+//   },
+//   onFail: (error) => {
+//     console.error(error)
+//   },
+// })
 
 xhrData.post = (url, body, onSuccess, onFail) => {
   xhrData({ method: 'POST', body, url, onSuccess, onFail })
@@ -63,6 +63,7 @@ xhrData.delete = (url, onSuccess, onFail) => {
   xhrData({ method: 'DELETE', url, onSuccess, onFail })
 }
 
+/* // 사용예제
 xhrData.get(
   'https://jsonplaceholder.typicode.com/users',
   (res) => {
@@ -113,7 +114,7 @@ xhrData.delete(
   (err) => {
     console.log(err)
   },
-)
+) */
 /* xhrData('POST', 'https://jsonplaceholder.typicode.com/users', {
   name: 'Leanne Graham',
   username: 'Bret',
