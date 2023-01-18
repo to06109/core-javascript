@@ -1,4 +1,4 @@
-import { insertLast, xhrData, xhrPromise } from './lib/index.js'
+import { insertLast, xhrData, xhrPromise, tiger } from './lib/index.js'
 
 /* // 콜백방식 사용해보기
 xhrData.get(

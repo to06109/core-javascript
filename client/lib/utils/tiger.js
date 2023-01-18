@@ -11,11 +11,11 @@ const defaultOptions = {
   },
 }
 
-const tiger = async (options = {}) => {
+export const tiger = async (options = {}) => {
   const { url, ...restOptions } = {
     ...defaultOptions,
     ...options,
-    headers: { ...defaultOptions.headers, ...options.headers },
+    headers: { ...(defaultOptions.headers ?? {}), ...(options.headers ?? {}) }, // header 없으면 빈객체로 해라~ 에러 안나게 nullish 처리
   }
 
   let response = await fetch(url, restOptions)
@@ -29,4 +29,33 @@ const tiger = async (options = {}) => {
   return response
 }
 
-console.log('결과', tiger())
+// console.log(
+//   '결과',
+//   tiger({ url: 'https://jsonplaceholder.typicode.com/users/1' }),
+// )
+
+tiger.get = (url, options) => {
+  return tiger({ url, ...options })
+}
+
+/**
+ * @function tiger
+ * @param {string} url
+ * @param {object} body
+ * @param {{a:number, b:string, c:string}} options
+ * @returns {Promise} promise
+ */
+tiger.post = (url, body, options) => {
+  return tiger({ method: 'POST', url, body: JSON.stringify(body), ...options })
+}
+
+tiger.put = (url, body, options) => {
+  return tiger({ method: 'PUT', url, body: JSON.stringify(body), ...options })
+}
+
+tiger.delete = (url, options) => {
+  return tiger({ method: 'DELETE', url, ...options })
+}
+
+// 사용
+// tiger.post('www.naver.com', { name: 'tiger' }, { mode: 'cors', headers: {} })
