@@ -76,19 +76,60 @@ delayP(true, 1000, '진짜 성공', '오류가 발생했다!').then((res) => {
 
 // console.log(delayP())
 
-// promise value값 가져오기
-// delayP()
-//   .then((res) => {
-//     console.log(res) // 성공!
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//   })
+/* // promise value값 가져오기
+delayP()
+  .then((res) => {
+    console.log(res) // 성공!
+  })
+  .catch((err) => {
+    console.log(err)
+  }) */
 
-// async await
+/* -------------------------------------------------------------------------- */
+/*                                 async await                                */
+/* -------------------------------------------------------------------------- */
+
+// async: 일반 함수를 promise를 반환하는 함수로 만든다.
+// await: 1. promise가 반환하는 result를 가져오기.
+//        2. 코드 실행 흐름 제거
+
+/* 
+  // promise 이용
+  function delayA() {
+    return new Promise((resolve, reject) => {
+      resolve('완료')
+    })
+  } 
+*/
+
 async function delayAsync() {
   return '완료'
 }
 
 let result = await delayAsync()
 console.log(result)
+
+// await로 코드 실행 흐름 제어 예시 + 에러 처리
+/* async function 라면끓이기() {
+  try {
+    await delayP(1500)
+    console.log('물넣기')
+
+    await delayP(1500)
+    console.log('스프넣기')
+
+    await delayP(1500)
+    console.log('면넣기')
+
+    await delayP(1500)
+    console.log('계란넣기')
+
+    throw new Error('계란 껍질이 들어가버렸다!')
+    await delayP(1500)
+    console.log('그릇에담기')
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+라면끓이기() */
