@@ -34,12 +34,20 @@ function delay(callback, timeout = 1000) {
 //     second.style.left = '0px'
 //   })
 
-function delayP(
-  shouldReject = false,
-  timeout = 1000,
-  data = '성공했습니다.',
-  errorMessage = '알 수 없는 오류가 발생했습니다.',
-) {
+const defaultOptions = {
+  shouldReject: false,
+  timeout: 1000,
+  data: '성공',
+  errorMessage: '알 수 없는 오류가 발생했습니다.',
+}
+
+function delayP(options = {}) {
+  let config = { ...defaultOptions } // 얕은 복사
+
+  // 객체 합성 mixin
+  config = { ...config, ...options }
+  const {shouldReject, timeout, data, errorMessage} = config
+
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       !shouldReject ? resolve(data) : reject(errorMessage)
@@ -47,7 +55,11 @@ function delayP(
   })
 }
 
-console.log(delayP(true, 1000, '진짜 성공', '오류가 발생했다!'))
+console.log(
+  delayP({
+    data: '안녕',
+  }),
+)
 delayP(true, 1000, '진짜 성공', '오류가 발생했다!').then((res) => {
   console.log(res) // 진짜 성공
 })
