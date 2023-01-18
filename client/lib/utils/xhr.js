@@ -194,15 +194,15 @@ export function xhrPromise(options = {}) {
   })
 }
 
-xhrPromise({
-  url: 'https://jsonplaceholder.typicode.com/users/1',
-})
-  .then((res) => {
-    console.log(res)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+// xhrPromise({
+//   url: 'https://jsonplaceholder.typicode.com/users/1',
+// })
+//   .then((res) => {
+//     console.log(res)
+//   })
+//   .catch((err) => {
+//     console.log(err)
+//   })
 
 xhrPromise.get = (url) => {
   return xhrPromise({
@@ -233,11 +233,11 @@ xhrPromise.delete = (url) => {
   })
 }
 
-xhrPromise
-  .get('www.naver.com')
-  .then((res) => {
-    console.log(res)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+// xhrPromise
+//   .get('www.naver.com')
+//   .then((res) => {
+//     console.log(res)
+//   })
+//   .catch((err) => {
+//     console.log(err)
+//   })

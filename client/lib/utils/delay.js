@@ -84,3 +84,11 @@ delayP(true, 1000, '진짜 성공', '오류가 발생했다!').then((res) => {
 //   .catch((err) => {
 //     console.log(err)
 //   })
+
+// async await
+async function delayAsync() {
+  return '완료'
+}
+
+let result = await delayAsync()
+console.log(result)

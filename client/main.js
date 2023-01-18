@@ -13,7 +13,7 @@ xhrData.get(
   },
 ) */
 
-// 프라미스방식 사용해보기
+/* // 프라미스방식 사용해보기
 xhrPromise
   .get('https://jsonplaceholder.typicode.com/users/1')
   .then((res) => {
@@ -21,4 +21,4 @@ xhrPromise
   })
   .catch((err) => {
     insertLast('body', '데이터 로딩에 실패했습니다.')
-  })
+  }) */
