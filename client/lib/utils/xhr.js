@@ -1,5 +1,16 @@
 // Ajax Engine
 
+import { typeError } from '../error/index.js'
+
+/* readyState
+  0: uninitalized // 초기화 
+  1: loading // 로딩
+  2: loaded // 로딩이 완료된 
+  3: interactive // 인터랙티브
+  4: complete // 완료 
+  */
+
+// 콜백 방식
 export function xhrData({
   url = '',
   method = 'GET',
@@ -137,3 +148,58 @@ xhrData.delete(
     bs: 'harness real-time e-markets',
   },
 }) */
+
+// Promise API
+
+const defaultOptions = {
+  url: '',
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+  body: null,
+}
+
+function xhrPromise(options = {}) {
+  const xhr = new XMLHttpRequest()
+
+  // 얕복하고 합성해서 구조분해할당 때림
+  const { method, url, body, headers } = Object.assign(
+    {},
+    defaultOptions,
+    options,
+  )
+
+  if (!url) typeError('서버와 통신할 url인자는 반드시 필요합니다. ')
+  // 얕은 복사라서 header는 참조만함
+  // console.log(headers === defaultOptions.headers) // true
+
+  xhr.open(method, url)
+
+  xhr.send(body ? JSON.stringify(body) : null)
+
+  return new Promise((resolve, reject) => {
+    xhr.addEventListener('readystatechange', () => {
+      const { status, readyState, response } = xhr
+      if (status >= 200 && status < 400) {
+        if (readyState === 4) {
+          console.log('통신 성공')
+          resolve(JSON.parse(response))
+        }
+      } else {
+        reject('에러입니다.')
+      }
+    })
+  })
+}
+
+xhrPromise({
+  url: 'https://jsonplaceholder.typicode.com/users/1',
+})
+  .then((res) => {
+    console.log(res)
+  })
+  .catch((err) => {
+    console.log(err)
+  })

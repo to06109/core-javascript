@@ -42,7 +42,7 @@ const defaultOptions = {
   errorMessage: '알 수 없는 오류가 발생했습니다.',
 }
 
-function delayP(options = {}) {
+export function delayP(options = {}) {
   let config = { ...defaultOptions } // 얕은 복사
 
   // options 값이 숫자일 경우
@@ -63,16 +63,16 @@ function delayP(options = {}) {
   })
 }
 
-console.log(
+/* console.log(
   delayP({
     data: '안녕',
   }),
-)
+) */
 // 어 근데 나 속성 안쓰고 숫자만 쓰고싶어!
-console.log(delayP(3000))
+/* console.log(delayP(3000))
 delayP(true, 1000, '진짜 성공', '오류가 발생했다!').then((res) => {
   console.log(res) // 진짜 성공
-})
+}) */
 
 // console.log(delayP())
 
