@@ -1,3 +1,4 @@
+export * from './tiger.js'
 export * from './xhr.js'
 export * from './delay.js'
 export * from './copy.js'
