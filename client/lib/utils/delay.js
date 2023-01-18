@@ -1,4 +1,5 @@
 import { getNode } from '../dom/getNode.js'
+import { isNumber, isObject } from './typeOf.js'
 
 const first = getNode('.first')
 const second = getNode('.second')
@@ -44,9 +45,16 @@ const defaultOptions = {
 function delayP(options = {}) {
   let config = { ...defaultOptions } // 얕은 복사
 
+  // options 값이 숫자일 경우
+  if (isNumber(options)) {
+    config.timeout = options
+  }
   // 객체 합성 mixin
-  config = { ...config, ...options }
-  const {shouldReject, timeout, data, errorMessage} = config
+  if (isObject(options)) {
+    config = { ...config, ...options }
+  }
+
+  const { shouldReject, timeout, data, errorMessage } = config
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -60,6 +68,8 @@ console.log(
     data: '안녕',
   }),
 )
+// 어 근데 나 속성 안쓰고 숫자만 쓰고싶어!
+console.log(delayP(3000))
 delayP(true, 1000, '진짜 성공', '오류가 발생했다!').then((res) => {
   console.log(res) // 진짜 성공
 })
