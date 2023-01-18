@@ -161,7 +161,7 @@ const defaultOptions = {
   body: null,
 }
 
-function xhrPromise(options = {}) {
+export function xhrPromise(options = {}) {
   const xhr = new XMLHttpRequest()
 
   // 얕복하고 합성해서 구조분해할당 때림
@@ -197,6 +197,44 @@ function xhrPromise(options = {}) {
 xhrPromise({
   url: 'https://jsonplaceholder.typicode.com/users/1',
 })
+  .then((res) => {
+    console.log(res)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
+xhrPromise.get = (url) => {
+  return xhrPromise({
+    url,
+  })
+}
+
+xhrPromise.post = (url, body) => {
+  return xhrPromise({
+    method: 'POST',
+    url,
+    body,
+  })
+}
+
+xhrPromise.put = (url, body) => {
+  return xhrPromise({
+    method: 'PUT',
+    url,
+    body,
+  })
+}
+
+xhrPromise.delete = (url) => {
+  return xhrPromise({
+    method: 'DELETE',
+    url,
+  })
+}
+
+xhrPromise
+  .get('www.naver.com')
   .then((res) => {
     console.log(res)
   })
