@@ -45,7 +45,7 @@ async function rendingUserList() {
   try {
     await delayP(2000) // 2초 뒤에 렌더링
     $('.loadingSpinner').remove()
-    let response = await tiger.get('https://jsonplaceholder.typicode.com/users')
+    let response = await tiger.get('http://localhost:3000/users')
     let userData = response.data
 
     console.log(response)
@@ -76,7 +76,11 @@ function handler(e) {
   if (!deleteButton || !article) return
 
   // slice를 준 이유 'user-1' -> '1'
-  console.log(+attr(article, 'data-index').slice(5))
+  let id = attr(article, 'data-index').slice(5)
+  tiger.delete(`http://localhost:3000/users/${id}`).then(() => {
+    userCardContainer.innerHTML = '' // 카드 html 싹 다 지움
+    rendingUserList()
+  })
 }
 
 userCardContainer.addEventListener('click', handler)
