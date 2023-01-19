@@ -1,4 +1,14 @@
-import { getNode, insertLast, tiger, renderUserCard } from './lib/index.js'
+/* global gsap */
+
+import {
+  getNode,
+  insertLast,
+  tiger,
+  renderUserCard,
+  renderSpinner,
+  changeColor,
+  delayP,
+} from './lib/index.js'
 
 /* // 콜백방식 사용해보기
 xhrData.get(
@@ -29,13 +39,28 @@ xhrPromise
 const userCardContainer = getNode('.user-card-inner')
 
 async function rendingUserList() {
-  let response = await tiger.get('https://jsonplaceholder.typicode.com/users/1')
+  renderSpinner('.user-card-list')
+  try {
+    await delayP(2000) // 2초 뒤에 렌더링
+    getNode('.loadingSpinner').remove()
+    let response = await tiger.get('https://jsonplaceholder.typicode.com/users')
+    let userData = response.data
 
-  let userData = response.data
+    console.log(response)
+    userData.forEach((data) => renderUserCard(userCardContainer, data))
 
-  console.log(userData)
+    // let list = document.querySelectorAll('.user-card') // 얘를 또 배열로 가져와야함
+    gsap.to(gsap.utils.toArray('.user-card'), {
+      x: 0,
+      opacity: 1,
+      duration: 1.5,
+      stagger: 0.2,
+    })
 
-  renderUserCard(userCardContainer, userData)
+    changeColor('.user-card')
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 // ajax get통신으로 user List를 받아오기
