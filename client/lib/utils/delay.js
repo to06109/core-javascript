@@ -107,7 +107,7 @@ async function delayAsync() {
 }
 
 let result = await delayAsync()
-console.log(result)
+// console.log(result)
 
 // await로 코드 실행 흐름 제어 예시 + 에러 처리
 /* async function 라면끓이기() {
