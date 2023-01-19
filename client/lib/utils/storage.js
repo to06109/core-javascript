@@ -40,10 +40,10 @@ const albums = [
 // JSON.stringify()
 // serialize()
 // deserialize()
-function saveStorage(key, value) {
+export function saveStorage(key, value) {
   return new Promise((resolve, reject) => {
     if (isString(key)) {
-      storage.setItem(key, value)
+      storage.setItem(key, serialize(value))
       resolve()
     } else {
       reject({ message: 'key는 문자타입이어야 합니다.' })
@@ -51,7 +51,30 @@ function saveStorage(key, value) {
   })
 }
 
-saveStorage('name', 'tiger')
+export function loadStorage(key) {
+  return new Promise((resolve, reject) => {
+    if (isString(key)) {
+      resolve(deserialize(storage.getItem(key)))
+    } else {
+      reject({ message: 'key는 문자타입이어야 합니다.' })
+    }
+  })
+}
+
+export function deleteStorage(key) {
+  return new Promise((resolve, reject) => {
+    !key ? storage.clear() : storage.removeItem(key)
+    resolve()
+  })
+}
+
+// saveStorage('name', albums)
+
+// loadStorage('name').then((res) => {
+//   console.log(res)
+// })
+
+// deleteStorage()
 
 /* 
   연습
