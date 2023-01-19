@@ -1,13 +1,15 @@
 /* global gsap */
 
 import {
-  getNode,
+  getNode as $,
   insertLast,
   tiger,
   renderUserCard,
   renderSpinner,
+  renderEmptyCard,
   changeColor,
   delayP,
+  attr,
 } from './lib/index.js'
 
 /* // 콜백방식 사용해보기
@@ -36,13 +38,13 @@ xhrPromise
 // 1. 유저 카드 생성하기
 // 2. 생성한 카드를 렌더링
 
-const userCardContainer = getNode('.user-card-inner')
+const userCardContainer = $('.user-card-inner')
 
 async function rendingUserList() {
   renderSpinner('.user-card-list')
   try {
     await delayP(2000) // 2초 뒤에 렌더링
-    getNode('.loadingSpinner').remove()
+    $('.loadingSpinner').remove()
     let response = await tiger.get('https://jsonplaceholder.typicode.com/users')
     let userData = response.data
 
@@ -59,10 +61,22 @@ async function rendingUserList() {
 
     changeColor('.user-card')
   } catch (err) {
-    console.log(err)
+    renderEmptyCard(userCardContainer)
   }
 }
 
+rendingUserList()
+
 // ajax get통신으로 user List를 받아오기
 
-rendingUserList()
+// 이벤트 위임
+function handler(e) {
+  let deleteButton = e.target.closest('button')
+  let article = e.target.closest('article')
+  if (!deleteButton || !article) return
+
+  // slice를 준 이유 'user-1' -> '1'
+  console.log(+attr(article, 'data-index').slice(5))
+}
+
+userCardContainer.addEventListener('click', handler)
