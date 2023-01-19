@@ -1,4 +1,4 @@
-import { insertLast, tiger } from './lib/index.js'
+import { getNode, insertLast, tiger, renderUserCard } from './lib/index.js'
 
 /* // 콜백방식 사용해보기
 xhrData.get(
@@ -23,17 +23,19 @@ xhrPromise
     insertLast('body', '데이터 로딩에 실패했습니다.')
   }) */
 
-
 // 1. 유저 카드 생성하기
 // 2. 생성한 카드를 렌더링
 
+const userCardContainer = getNode('.user-card-inner')
 
 async function rendingUserList() {
-  let response = await tiger.get('https://jsonplaceholder.typicode.com/users')
+  let response = await tiger.get('https://jsonplaceholder.typicode.com/users/1')
 
   let userData = response.data
 
   console.log(userData)
+
+  renderUserCard(userCardContainer, userData)
 }
 
 // ajax get통신으로 user List를 받아오기

@@ -1,5 +1,7 @@
+import { insertLast } from './insert.js'
+
 // 구조 분해 할당에 기본값 쓰기
-export const createUserCard = ({
+const createUserCard = ({
   id = '',
   name = '',
   email = '',
@@ -34,3 +36,7 @@ export const createUserCard = ({
 //   email: 'tiger@euid.dev',
 //   website: 'tiger.com',
 // })
+
+export const renderUserCard = (target, data) => {
+  insertLast(target, createUserCard(data))
+}
