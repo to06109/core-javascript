@@ -5,7 +5,7 @@ const defaultOptions = {
   cache: 'no-cache',
   credential: 'same-origin',
   redirect: 'follow',
-  referrerPolicy: 'no-reffere',
+  referrerPolicy: 'no-referrer',
   headers: {
     'Content-Type': 'application/json; charset=UTF-8',
   },

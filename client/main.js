@@ -23,6 +23,11 @@ xhrPromise
     insertLast('body', '데이터 로딩에 실패했습니다.')
   }) */
 
+
+// 1. 유저 카드 생성하기
+// 2. 생성한 카드를 렌더링
+
+
 async function rendingUserList() {
   let response = await tiger.get('https://jsonplaceholder.typicode.com/users')
 
